@@ -7,12 +7,12 @@ def main():
     x = 1
     prev = 0
     twoprev = 0
-    print(1)
     for i in range(num -1):
         result = x + prev
         twoprev = prev
         prev = x
         x = result
-        print(result)
+    print(result)
+    
 
 main()
