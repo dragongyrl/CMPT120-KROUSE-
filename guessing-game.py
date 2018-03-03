@@ -12,10 +12,16 @@ def main():
         if inny==answer:
             print('That\'s the one!')
             boo=True
-        elif inny == 'quit':
+            opinion=input('Do you like this animal? Please answer y or n.')
+            if opinion=='y':
+                print('Great! It\'s such a good animal!')
+            elif opinion=='n':
+                print('Really? I think they\'re pretty cool.')
+        elif inny.startswith('q'):
             exit()
         else:
             print('That\'s not it! Try again!')
+    
 
 main()
     
