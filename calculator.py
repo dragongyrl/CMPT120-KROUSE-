@@ -15,10 +15,9 @@ def buttonMaker(valX1,valY1,valX2,valY2,color,num,win):
     num2 = Point(valX2,valY2)
     buttonNum = Rectangle(num1, num2)
     buttonNum.setFill(color)
-    text = Text(Point((valX2-valX1)/2,(valY2-valY1)/2),num)
+    text = Text(Point(valX1+30,valY1+30),num)
     buttonNum.draw(win)
     text.draw(win)
-
 
 def screenClean(win):
     scr1 = Point(60, 60)
@@ -27,10 +26,25 @@ def screenClean(win):
     screen.setFill('white')
     screen.draw(win)
 
+def addy(x,y):
+    return float(x) + float(y)
+
+def subby(x,y):
+    return float(x) - float(y)
+
+def multy(x,y):
+    return float(x) * float(y)
+
+def divy(x,y):
+    return float(x) / float(y)
+
+def percy(x,y):
+    return float(x) * float(y)/100.0
+
 def main():
-    win = GraphWin('Calculator', 500, 560)
+    win = GraphWin('Calculator', 700, 560)
     corner1 = Point(40,40)
-    corner2 = Point(400,540)
+    corner2 = Point(500,540)
     base = Rectangle(corner1, corner2)
     base.setFill('lightblue')
     base.draw(win)
@@ -59,6 +73,11 @@ def main():
     div= buttonMaker(300,380,360,440,'orange','/',win)
     equ= buttonMaker(300,460,360,520,'orange','=',win)
     sign= buttonMaker(220,460,280,520,'orange','-',win)
+    percent= buttonMaker(380,140,440,200,'orange','%',win)
+    sqrt= buttonMaker(380,220,440,280,'orange','sqrt',win)
+    squ= buttonMaker(380,300,440,360,'orange','x^2',win)
+    denom= buttonMaker(380,380,440,440,'orange','1/x',win)
+    clear= buttonMaker(60,380,120,440,'orange','C',win)
 
     displayString = ''
     operation = False
@@ -68,7 +87,7 @@ def main():
         clicked = win.getMouse()
         if inside(clicked, num7, 60,140,120,200):
             screenClean(win)
-            displayString = displayString +'7'
+            displayString = displayString + '7'
             text = Text(Point(360-len(displayString) * 10, 90), displayString)
             text.draw(win)
             if operation ==True:
@@ -195,22 +214,62 @@ def main():
             text.draw(win)
         if inside(clicked, sign, 220,460,280,520)and operation==False:
             screenClean(win)
-            displayString= str(0-int(displayString))
+            displayString= str(0-float(displayString))
             text = Text(Point(360-len(displayString) * 10, 90), displayString)
             text.draw(win)
         if inside(clicked, equ, 300,460,360,520)and operation==True and secnum==True:
             screenClean(win)
-            hiddenString2 = displayString
             if opsign==1:
-                result= int(hiddenString1) + int(hiddenString2)
+                result= addy(hiddenString1, displayString)
             elif opsign==2:
-                result= int(hiddenString1) - int(hiddenString2)
+                result= subby(hiddenString1, displayString)
             elif opsign==3:
-                result= int(hiddenString1) * int(hiddenString2)
+                result= multy(hiddenString1, displayString)
             elif opsign==4:
-                result= int(hiddenString1) / int(hiddenString2)
+                result= divy(hiddenString1, displayString)
+            elif opsign==5:
+                result= percy(hiddenString1, displayString)
             restext = str(result)
             displayString = '=' + restext
+            text = Text(Point(360-len(displayString) * 10, 90), displayString)
+            text.draw(win)
+        
+        if inside(clicked, percent, 380,140,440,200)and operation==False:
+            screenClean(win)
+            hiddenString1 = displayString
+            displayString = '%'
+            operation = True
+            opsign = 5
+            text = Text(Point(360-len(displayString) * 10, 90), displayString)
+            text.draw(win)
+        if inside(clicked, sqrt, 380,220,440,280)and operation==False:
+            screenClean(win)
+            x = float(displayString)
+            result = x**(1/2)
+            displayString = str(result)
+            text = Text(Point(360-len(displayString) * 10, 90), displayString)
+            text.draw(win)
+        if inside(clicked, squ, 380,300,440,360)and operation==False:
+            screenClean(win)
+            x = float(displayString)
+            result = x**2
+            displayString = str(result)
+            text = Text(Point(360-len(displayString) * 10, 90), displayString)
+            text.draw(win)
+        if inside(clicked, denom, 380,380,440,440)and operation==False:
+            screenClean(win)
+            x = float(displayString)
+            result = 1/x
+            displayString = str(result)
+            text = Text(Point(360-len(displayString) * 10, 90), displayString)
+            text.draw(win)
+        if inside(clicked, clear, 60,380,120,440):
+            screenClean(win)
+            hiddenString1 = ''
+            displayString = ''
+            operation = False
+            opsign= 0
+            secnum=False
             text = Text(Point(360-len(displayString) * 10, 90), displayString)
             text.draw(win)
 
