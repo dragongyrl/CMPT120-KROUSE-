@@ -41,10 +41,38 @@ def divy(x,y):
 def percy(x,y):
     return float(x) * float(y)/100.0
 
+def sqrty(x):
+    return float(x) **(1/2)
+
+def squy(x):
+    return float(x) **2
+
+def denomy(x):
+    return 1/float(x)
+
+def memcleary():
+    return ''
+
+def memaddy(mem,dis):
+    return str(float(mem)+float(dis))
+
+def memsubby(mem,dis):
+    return str(float(mem)-float(dis))
+
+def memrecy(mem,win):
+    text = Text(Point(360-len(mem) * 10, 90), mem)
+    text.draw(win)
+    return ''
+
+def memsubsty(dis,win):
+    text = Text(Point(360-len(dis) * 10, 90), dis)
+    text.draw(win)
+    return dis
+
 def main():
     win = GraphWin('Calculator', 700, 560)
     corner1 = Point(40,40)
-    corner2 = Point(500,540)
+    corner2 = Point(600,540)
     base = Rectangle(corner1, corner2)
     base.setFill('lightblue')
     base.draw(win)
@@ -78,6 +106,12 @@ def main():
     squ= buttonMaker(380,300,440,360,'orange','x^2',win)
     denom= buttonMaker(380,380,440,440,'orange','1/x',win)
     clear= buttonMaker(60,380,120,440,'orange','C',win)
+
+    memclear= buttonMaker(460,140,520,200,'pink','MC',win)
+    memadd= buttonMaker(460,220,520,280,'pink','M+',win)
+    memsub= buttonMaker(460,300,520,360,'pink','M-',win)
+    memrec= buttonMaker(460,380,520,440,'pink','MR',win)
+    memsubst= buttonMaker(460,460,520,520,'pink','MS',win)
 
     displayString = ''
     operation = False
@@ -244,22 +278,19 @@ def main():
             text.draw(win)
         if inside(clicked, sqrt, 380,220,440,280)and operation==False:
             screenClean(win)
-            x = float(displayString)
-            result = x**(1/2)
+            result = sqrty(displayString)
             displayString = str(result)
             text = Text(Point(360-len(displayString) * 10, 90), displayString)
             text.draw(win)
         if inside(clicked, squ, 380,300,440,360)and operation==False:
             screenClean(win)
-            x = float(displayString)
-            result = x**2
+            result = squy(displayString)
             displayString = str(result)
             text = Text(Point(360-len(displayString) * 10, 90), displayString)
             text.draw(win)
         if inside(clicked, denom, 380,380,440,440)and operation==False:
             screenClean(win)
-            x = float(displayString)
-            result = 1/x
+            result = denomy(displayString)
             displayString = str(result)
             text = Text(Point(360-len(displayString) * 10, 90), displayString)
             text.draw(win)
@@ -273,5 +304,28 @@ def main():
             text = Text(Point(360-len(displayString) * 10, 90), displayString)
             text.draw(win)
 
+        if inside(clicked, memclear, 460,140,520,200):
+            screenClean(win)
+            memory = memcleary()
+            displayString=''
+        if inside(clicked, memadd, 460,220,520,280):
+            screenClean(win)
+            memory = memaddy(memory,displayString)
+            displayString=''
+            text = Text(Point(360-len(memory) * 10, 90), memory)
+            text.draw(win)
+        if inside(clicked, memsub, 460,300,520,360):
+            screenClean(win)
+            memory = memsubby(memory,displayString)
+            displayString=''
+            text = Text(Point(360-len(memory) * 10, 90), memory)
+            text.draw(win)
+        if inside(clicked, memrec, 460,380,520,440):
+            screenClean(win)
+            displayString = memrecy(memory,win)
+        if inside(clicked, memsubst, 460,460,520,520):
+            screenClean(win)
+            memory = memsubsty(displayString,win)
+            displayString=''
 
 main()
