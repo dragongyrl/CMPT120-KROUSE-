@@ -23,7 +23,8 @@ def doLoop():
                 print(cmd + " is not a valid command.")
                 cmd = input("What computation do you want to perform? ")
                 cmd = cmd.lower()
-                
+        if cmd == "quit":
+            break        
         num1 = int(input("Enter the first number: "))
         num2 = int(input("Enter the second number: "))
         if cmd == "add":
@@ -34,8 +35,6 @@ def doLoop():
             result = num1 * num2
         elif cmd == "div":
             result = num1 // num2
-        elif cmd == "quit":
-            break
         print("The result is " + str(result) + ".\n")
     
 def main():
