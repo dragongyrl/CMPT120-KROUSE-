@@ -2,6 +2,9 @@
 #Instructor: Juan Arias
 #Date: 2/19
 
+# There are still some improvements you can make to the code by putting the
+# repeated statements into functions.
+
 import graphics
 from graphics import *
 
