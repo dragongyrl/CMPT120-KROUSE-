@@ -69,10 +69,40 @@ def memsubsty(dis,win):
     text.draw(win)
     return dis
 
+def expoy(x,y):
+    return float(x) **y
+
+def siny(x):
+    return sin(float(x))
+
+def cosy(x):
+    return cos(float(x))
+
+def tany(x):
+    return tan(float(x))
+
+def tenpowy(x):
+    return 10 **float(x)
+
+def loggy(x):
+    return float(x) **2
+
+def arcsy(x):
+    return float(x) **2
+
+def arccy(x):
+    return float(x) **2
+
+def arcty(x):
+    return float(x) **2
+
+def natlogy(x):
+    return float(x) **2
+
 def main():
-    win = GraphWin('Calculator', 700, 560)
+    win = GraphWin('Calculator', 720, 650)
     corner1 = Point(40,40)
-    corner2 = Point(600,540)
+    corner2 = Point(700,550)
     base = Rectangle(corner1, corner2)
     base.setFill('lightblue')
     base.draw(win)
@@ -112,6 +142,17 @@ def main():
     memsub= buttonMaker(460,300,520,360,'pink','M-',win)
     memrec= buttonMaker(460,380,520,440,'pink','MR',win)
     memsubst= buttonMaker(460,460,520,520,'pink','MS',win)
+
+    expo= buttonMaker(540,140,600,200,'orange','x^y',win)
+    sinbut= buttonMaker(540,220,600,280,'orange','sin',win)
+    cosbut= buttonMaker(540,300,600,360,'orange','cos',win)
+    tanbut= buttonMaker(540,380,600,440,'orange','tan',win)
+    tenpow= buttonMaker(540,460,600,520,'orange','10^x',win)
+    logbut= buttonMaker(620,140,680,200,'orange','log',win)
+    arcsbut= buttonMaker(620,220,680,280,'orange','arcsin',win)
+    arccbut= buttonMaker(620,300,680,360,'orange','arccos',win)
+    arctbut= buttonMaker(620,380,680,440,'orange','arctan',win)
+    natlog= buttonMaker(620,460,680,520,'orange','ln',win)
 
     displayString = ''
     operation = False
@@ -327,5 +368,7 @@ def main():
             screenClean(win)
             memory = memsubsty(displayString,win)
             displayString=''
+
+        
 
 main()
