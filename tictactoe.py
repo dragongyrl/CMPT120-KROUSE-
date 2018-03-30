@@ -47,12 +47,11 @@ def getPlayerMove():
     return (row,col)
 
 def hasBlanks(board):
-                    
-    # for each row in the board...
-    # for each square in the row...
-    # check whether the square is blank
-    # if so, return True
-    return True # if no square is blank, return False
+    for i in range(3):
+        for k in range(3):
+            if board[i][k]==0:
+                return True
+    return False
 
 def main():
     board = [
