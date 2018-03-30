@@ -9,22 +9,23 @@ def printRow(row):
     two=' '
     three=' '
     if row[0]==1:
-        one=o
+        one='o'
     if row[0]==2:
-        one=x
+        one='x'
     if row[1]==1:
-        two=o
+        two='o'
     if row[1]==2:
-        two=x
+        two='x'
     if row[2]==1:
-        three=o
+        three='o'
     if row[2]==2:
-        three=x
+        three='x'
     print("| " + one + " | " + two + " | " + three + " |")
     pass
 
 def lining():
     print("+-----------+")
+    pass
 
 def printBoard(board):
     print(lining())
@@ -32,17 +33,17 @@ def printBoard(board):
     print(lining())
     print(printRow(board[1]))
     print(lining())
-    print(printRow(board[1]))
+    print(printRow(board[2]))
     print(lining())
     pass
 
 def markBoard(board, row, col, player):
-    
+    board[row][col]=player
     pass
 
 def getPlayerMove():
-    row = input("Please enter a row number.")
-    col = input("Please enter a column number.")
+    row = int(input("Please enter a row number."))
+    col = int(input("Please enter a column number."))
     return (row,col)
 
 def hasBlanks(board):
@@ -55,8 +56,8 @@ def hasBlanks(board):
 
 def main():
     board = [
-        [0,0,0]
-        [0,0,0]
+        [0,0,0],
+        [0,0,0],
         [0,0,0]] # TODO replace this with a three-by-three matrix of zeros
     player = 1
     while hasBlanks(board):
