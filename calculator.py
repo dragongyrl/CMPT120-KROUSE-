@@ -5,6 +5,8 @@
 # There are still some improvements you can make to the code by putting the
 # repeated statements into functions.
 
+# JA: previous comment still applies
+
 import graphics
 import math
 from graphics import *

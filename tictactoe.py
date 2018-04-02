@@ -21,21 +21,18 @@ def printRow(row):
     if row[2]==2:
         three='x'
     print("| " + one + " | " + two + " | " + three + " |")
-    pass
 
 def lining():
     print("+-----------+")
-    pass
 
 def printBoard(board):
-    print(lining())
-    print(printRow(board[0]))
-    print(lining())
-    print(printRow(board[1]))
-    print(lining())
-    print(printRow(board[2]))
-    print(lining())
-    pass
+    lining()
+    printRow(board[0])
+    lining()
+    printRow(board[1])
+    lining()
+    printRow(board[2])
+    lining()
 
 def markBoard(board, row, col, player):
     board[row][col]=player
@@ -64,6 +61,7 @@ def main():
         row,col = getPlayerMove()
         markBoard(board,row,col,player)
         player = player % 2 + 1 # switch player for next turn
+    printBoard(board)
 
 main()
 
