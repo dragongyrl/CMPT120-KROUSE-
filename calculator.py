@@ -2,27 +2,25 @@
 #Instructor: Juan Arias
 #Date: 2/19
 
-# There are still some improvements you can make to the code by putting the
-# repeated statements into functions.
-
 import graphics
 import math
 from graphics import *
 from math import *
+from button import Button
+from display import Display
 
-def inside(clicked, button, valX1,valY1,valX2,valY2):
-    if clicked.getX() > valX1 and clicked.getX() < valX2:
-        if clicked.getY() > valY1 and clicked.getY() < valY2:
-            return True
+class Calculator:
 
-def buttonMaker(valX1,valY1,valX2,valY2,color,num,win):
-    num1 = Point(valX1,valY1)
-    num2 = Point(valX2,valY2)
-    buttonNum = Rectangle(num1, num2)
-    buttonNum.setFill(color)
-    text = Text(Point(valX1+30,valY1+30),num)
-    buttonNum.draw(win)
-    text.draw(win)
+    def __init__(self):
+        self.win = GraphWin('Calculator', 750, 650)
+        corner1 = Point(40,40)
+        corner2 = Point(750,550)
+        base = Rectangle(corner1, corner2)
+        base.setFill('lightblue')
+        base.draw(self.win)
+
+    def getWin(self):
+        return self.win
 
 def insideChecker(num,win,displayString,secnum,operation):
     screenClean(win)
@@ -37,23 +35,17 @@ def insideChecker(num,win,displayString,secnum,operation):
 
 def opDoer(win,para,sym,displayString,operation,opsign,hiddenString1):
     screenClean(win)
-    if para==True:
-        displayString= displayString+ sym
-    else:
-        hiddenString1 = displayString
-        displayString = sym
-        operation = True
-        opsign = 1
+    displayString= displayString + sym
     text = beforeText(displayString)
     text.draw(win)
-    return displayString,operation,opsign,hiddenString1    
+    return displayString
 
 def screenClean(win):
-    scr1 = Point(60, 60)
-    scr2 = Point(380, 120)
-    screen = Rectangle(scr1, scr2)
-    screen.setFill('white')
-    screen.draw(win)
+        scr1 = Point(60, 60)
+        scr2 = Point(380, 120)
+        screen1 = Rectangle(scr1, scr2)
+        screen1.setFill('white')
+        screen1.draw(win)
 
 def beforeText(displayString):
     return Text(Point(360-len(displayString) * 10, 90), displayString)
@@ -135,50 +127,42 @@ def natlogy(x):
     return log(e,float(x))
 
 def main():
-    win = GraphWin('Calculator', 750, 650)
-    corner1 = Point(40,40)
-    corner2 = Point(750,550)
-    base = Rectangle(corner1, corner2)
-    base.setFill('lightblue')
-    base.draw(win)
+    calc = Calculator()
+    win = calc.getWin()
+
+    screen = Display(win,Point(60,60))
+
+    num7= Button(win,Point(90,170),60,60,'7','yellow')
+    num8= Button(win,Point(170,170),60,60,'8','yellow')
+    num9= Button(win,Point(250,170),60,60,'9','yellow')
+    num4= Button(win,Point(90,250),60,60,'4','yellow')
+    num5= Button(win,Point(170,250),60,60,'5','yellow')
+    num6= Button(win,Point(250,250),60,60,'6','yellow')
+    num1= Button(win,Point(90,330),60,60,'1','yellow')
+    num2= Button(win,Point(170,330),60,60,'2','yellow')
+    num3= Button(win,Point(250,330),60,60,'3','yellow')
+    num0= Button(win,Point(170,410),60,60,'0','yellow')
+    numdec= Button(win,Point(250,410),60,60,'.','yellow')
     
-    scr1 = Point(60, 60)
-    scr2 = Point(380, 120)
-    screen = Rectangle(scr1, scr2)
-    screen.setFill('white')
-    screen.draw(win)
+    add= Button(win,Point(330,170),60,60,'+','orange')
+    sub= Button(win,Point(330,250),60,60,'-','orange')
+    mult= Button(win,Point(330,330),60,60,'x','orange')
+    div= Button(win,Point(330,410),60,60,'/','orange')
+    equ= Button(win,Point(330,490),60,60,'=','orange')
+    sign= Button(win,Point(250,490),60,60,'+/-','orange')
+    percent= Button(win,Point(410,170),60,60,'%','orange')
+    sqrt= Button(win,Point(410,250),60,60,'sqrt','orange')
+    squ= Button(win,Point(410,330),60,60,'x^2','orange')
+    denom= Button(win,Point(410,410),60,60,'1/x','orange')
+    clear= Button(win,Point(90,410),60,60,'C','orange')
 
-    num7= buttonMaker(60,140,120,200,'yellow','7',win)
-    num8= buttonMaker(140,140,200,200,'yellow','8',win)
-    num9= buttonMaker(220,140,280,200,'yellow','9',win)
-    num4= buttonMaker(60,220,120,280,'yellow','4',win)
-    num5= buttonMaker(140,220,200,280,'yellow','5',win)
-    num6= buttonMaker(220,220,280,280,'yellow','6',win)
-    num1= buttonMaker(60,300,120,360,'yellow','1',win)
-    num2= buttonMaker(140,300,200,360,'yellow','2',win)
-    num3= buttonMaker(220,300,280,360,'yellow','3',win)
-    num0= buttonMaker(140,380,200,440,'yellow','0',win)
-    numdec= buttonMaker(220,380,280,440,'yellow','.',win)
-    
-    add= buttonMaker(300,140,360,200,'orange','+',win)
-    sub= buttonMaker(300,220,360,280,'orange','-',win)
-    mult= buttonMaker(300,300,360,360,'orange','x',win)
-    div= buttonMaker(300,380,360,440,'orange','/',win)
-    equ= buttonMaker(300,460,360,520,'orange','=',win)
-    sign= buttonMaker(220,460,280,520,'orange','+/-',win)
-    percent= buttonMaker(380,140,440,200,'orange','%',win)
-    sqrt= buttonMaker(380,220,440,280,'orange','sqrt',win)
-    squ= buttonMaker(380,300,440,360,'orange','x^2',win)
-    denom= buttonMaker(380,380,440,440,'orange','1/x',win)
-    clear= buttonMaker(60,380,120,440,'orange','C',win)
+    memclear= Button(win,Point(490,170),60,60,'MC','pink')
+    memadd= Button(win,Point(490,250),60,60,'M+','pink')
+    memsub= Button(win,Point(490,330),60,60,'M-','pink')
+    memrec= Button(win,Point(490,410),60,60,'MR','pink')
+    memsubst= Button(win,Point(490,490),60,60,'MS','pink')
 
-    memclear= buttonMaker(460,140,520,200,'pink','MC',win)
-    memadd= buttonMaker(460,220,520,280,'pink','M+',win)
-    memsub= buttonMaker(460,300,520,360,'pink','M-',win)
-    memrec= buttonMaker(460,380,520,440,'pink','MR',win)
-    memsubst= buttonMaker(460,460,520,520,'pink','MS',win)
-
-    science =buttonMaker(380,460,440,520,'red','SM',win)
+    science = Button(win,Point(410,490),60,60,'SM','red')
 
     displayString = ''
     hiddenString1=''
@@ -187,66 +171,34 @@ def main():
     secnum = False
     scienceBoo=False
     para=False
+    numButts=[num0,num1,num2,num3,num4,num5,num6,num7,num8,num9]
     while 1==1:
         clicked = win.getMouse()
-        if inside(clicked, num7, 60,140,120,200):
-            displayString,secnum=insideChecker('7',win,displayString,secnum,operation)
-        if inside(clicked, num8, 140,140,200,200):
-            displayString,secnum=insideChecker('8',win,displayString,secnum,operation)
-        if inside(clicked, num9, 220,140,280,200):
-            displayString,secnum=insideChecker('9',win,displayString,secnum,operation)
-        if inside(clicked, num4, 60,220,120,280):
-            displayString,secnum=insideChecker('4',win,displayString,secnum,operation)
-        if inside(clicked, num5, 140,220,200,280):
-            displayString,secnum=insideChecker('5',win,displayString,secnum,operation)
-        if inside(clicked, num6, 220,220,280,280):
-            displayString,secnum=insideChecker('6',win,displayString,secnum,operation)
-        if inside(clicked, num3, 220,300,280,360):
-            displayString,secnum=insideChecker('3',win,displayString,secnum,operation)
-        if inside(clicked, num2, 140,300,200,360):
-            displayString,secnum=insideChecker('2',win,displayString,secnum,operation)
-        if inside(clicked, num1, 60,300,120,360):
-            displayString,secnum=insideChecker('1',win,displayString,secnum,operation)
-        if inside(clicked, num0, 140,380,200,440):
-            displayString,secnum=insideChecker('0',win,displayString,secnum,operation)
-        if inside(clicked, numdec, 220,380,280,440):
+        for i in range(10):
+            if numButts[i].clicked(clicked):
+                displayString,secnum=insideChecker(str(i),win,displayString,secnum,operation)
+        if numdec.clicked(clicked):
             screenClean(win)
             displayString = displayString +'.'
             text = beforeText(displayString)
             text.draw(win)
-        if inside(clicked, add, 300,140,360,200)and operation==False:
-            displayString,operation,opsign,hiddenString1=opDoer(win,para,'+',displayString,operation,opsign,hiddenString1)
-        if inside(clicked, sub, 300,220,360,280)and operation==False:
-            displayString,operation,opsign,hiddenString1=opDoer(win,para,'-',displayString,operation,opsign,hiddenString1)
-        if inside(clicked, mult, 300,300,360,360)and operation==False:
-            displayString,operation,opsign,hiddenString1=opDoer(win,para,'x',displayString,operation,opsign,hiddenString1)
-        if inside(clicked, div, 300,380,360,440)and operation==False:
-            displayString,operation,opsign,hiddenString1=opDoer(win,para,'/',displayString,operation,opsign,hiddenString1)
-        if inside(clicked, sign, 220,460,280,520)and operation==False:
+        if add.clicked(clicked):
+            displayString =opDoer(win,para,'+',displayString,operation,opsign,hiddenString1)
+        if sub.clicked(clicked):
+            displayString =opDoer(win,para,'-',displayString,operation,opsign,hiddenString1)
+        if mult.clicked(clicked):
+            displayString =opDoer(win,para,'*',displayString,operation,opsign,hiddenString1)
+        if div.clicked(clicked):
+            displayString =opDoer(win,para,'/',displayString,operation,opsign,hiddenString1)
+        if sign.clicked(clicked):
             screenClean(win)
             displayString= str(0-float(displayString))
             text = beforeText(displayString)
             text.draw(win)
-        if inside(clicked, equ, 300,460,360,520)and ((operation==True and secnum==True) or para==True):
+        if equ.clicked(clicked):
             if scienceBoo ==False:
                 screenClean(win)
-            if para==True:
-                result=eval(displayString)
-            else:
-                if opsign==1:
-                    result= addy(hiddenString1, displayString)
-                elif opsign==2:
-                    result= subby(hiddenString1, displayString)
-                elif opsign==3:
-                    result= multy(hiddenString1, displayString)
-                elif opsign==4:
-                    result= divy(hiddenString1, displayString)
-                elif opsign==5:
-                    result= percy(hiddenString1, displayString)
-                elif opsign==6:
-                    result= expoy(hiddenString1, displayString)
-                elif opsign==7:
-                    result= logy(hiddenString1, displayString)
+            result=eval(displayString)
             restext = str(result)
             displayString = '=' + restext
             if scienceBoo ==False:
@@ -256,7 +208,7 @@ def main():
             text.draw(win)
             para=False
         
-        if inside(clicked, percent, 380,140,440,200)and operation==False:
+        if percent.clicked(clicked) and operation==False:
             screenClean(win)
             hiddenString1 = displayString
             displayString = '%'
@@ -264,25 +216,25 @@ def main():
             opsign = 5
             text = beforeText(displayString)
             text.draw(win)
-        if inside(clicked, sqrt, 380,220,440,280)and operation==False:
+        if sqrt.clicked(clicked) and operation==False:
             screenClean(win)
             result = sqrty(displayString)
             displayString = str(result)
             text = afterText(displayString)
             text.draw(win)
-        if inside(clicked, squ, 380,300,440,360)and operation==False:
+        if squ.clicked(clicked) and operation==False:
             screenClean(win)
             result = squy(displayString)
             displayString = str(result)
             text = afterText(displayString)
             text.draw(win)
-        if inside(clicked, denom, 380,380,440,440)and operation==False:
+        if denom.clicked(clicked) and operation==False:
             screenClean(win)
             result = denomy(displayString)
             displayString = str(result)
             text = afterText(displayString)
             text.draw(win)
-        if inside(clicked, clear, 60,380,120,440):
+        if clear.clicked(clicked):
             screenClean(win)
             hiddenString1 = ''
             displayString = ''
@@ -296,44 +248,45 @@ def main():
                 screen1.setFill('white')
                 screen1.draw(win)
 
-        if inside(clicked, memclear, 460,140,520,200):
+        if memclear.clicked(clicked):
             screenClean(win)
             memory = memcleary()
             displayString=''
-        if inside(clicked, memadd, 460,220,520,280):
+        if memadd.clicked(clicked):
             screenClean(win)
             memory = memaddy(memory,displayString)
             displayString=''
             text = Text(Point(360-len(memory) * 10, 90), memory)
             text.draw(win)
-        if inside(clicked, memsub, 460,300,520,360):
+        if memsub.clicked(clicked):
             screenClean(win)
             memory = memsubby(memory,displayString)
             displayString=''
             text = Text(Point(360-len(memory) * 10, 90), memory)
             text.draw(win)
-        if inside(clicked, memrec, 460,380,520,440):
+        if memrec.clicked(clicked):
             screenClean(win)
             displayString = memrecy(memory,win)
-        if inside(clicked, memsubst, 460,460,520,520):
+        if memsubst.clicked(clicked):
             screenClean(win)
             memory = memsubsty(displayString,win)
             displayString=''
 
-        if inside(clicked, science, 380,460,440,520):
+        if science.clicked(clicked):
             scienceBoo = True
-            expo= buttonMaker(540,140,600,200,'orange','x^y',win)
-            sinbut= buttonMaker(540,220,600,280,'orange','sin',win)
-            cosbut= buttonMaker(540,300,600,360,'orange','cos',win)
-            tanbut= buttonMaker(540,380,600,440,'orange','tan',win)
-            tenpow= buttonMaker(540,460,600,520,'orange','10^x',win)
-            logbut= buttonMaker(620,140,680,200,'orange','log',win)
-            arcsbut= buttonMaker(620,220,680,280,'orange','arcsin',win)
-            arccbut= buttonMaker(620,300,680,360,'orange','arccos',win)
-            arctbut= buttonMaker(620,380,680,440,'orange','arctan',win)
-            natlog= buttonMaker(620,460,680,520,'orange','ln',win)
-            paraleft =buttonMaker(60,460,120,520,'yellow','(',win)
-            pararight=buttonMaker(140,460,200,520,'yellow',')',win)
+            expo= Button(win,Point(570,170),60,60,'x^y','orange')
+            sinbut= Button(win,Point(570,250),60,60,'sin','orange')
+            cosbut= Button(win,Point(570,330),60,60,'cos','orange')
+            tanbut= Button(win,Point(570,410),60,60,'tan','orange')
+            tenpow= Button(win,Point(570,490),60,60,'10^x','orange')
+            logbut= Button(win,Point(650,170),60,60,'log','orange')
+            arcsbut= Button(win,Point(650,250),60,60,'arcsin','orange')
+            arccbut= Button(win,Point(650,330),60,60,'arccos','orange')
+            arctbut= Button(win,Point(650,410),60,60,'arctan','orange')
+            natlog= Button(win,Point(650,490),60,60,'ln','orange')
+            paraleft =Button(win,Point(90,490),60,60,'(','yellow')
+            pararight=Button(win,Point(170,490),60,60,')','yellow')
+            
             scr1 = Point(380, 60)
             scr2 = Point(600, 120)
             screen1 = Rectangle(scr1, scr2)
@@ -342,7 +295,7 @@ def main():
             displayString=''
             
         if scienceBoo == True:
-            if inside(clicked, expo, 540,140,600,200):
+            if expo.clicked(clicked):
                 screenClean(win)
                 hiddenString1 = displayString
                 displayString = displayString + "^"
@@ -350,7 +303,7 @@ def main():
                 opsign = 6
                 text = beforeText(displayString)
                 text.draw(win)
-            if inside(clicked, sinbut, 540,220,600,280):
+            if sinbut.clicked(clicked):
                 screenClean(win)
                 randstring = "sin(" +displayString + ")"
                 text = beforeText(randstring)
@@ -358,7 +311,7 @@ def main():
                 displayString ="=" + str(siny(displayString))
                 text1 = afterText(displayString)
                 text1.draw(win)
-            if inside(clicked, cosbut, 540,300,600,360):
+            if cosbut.clicked(clicked):
                 screenClean(win)
                 randstring = "cos(" +displayString + ")"
                 text = beforeText(randstring)
@@ -366,7 +319,7 @@ def main():
                 displayString = "=" + str(cosy(displayString))
                 text1 = afterText(displayString)
                 text1.draw(win)
-            if inside(clicked, tanbut, 540,380,600,440):
+            if tanbut.clicked(clicked):
                 screenClean(win)
                 randstring = "tan(" +displayString + ")"
                 text = beforeText(randstring)
@@ -374,7 +327,7 @@ def main():
                 displayString = "=" + str(tany(displayString))
                 text1 = afterText(displayString)
                 text1.draw(win)
-            if inside(clicked, tenpow, 540,460,600,520):
+            if tenpow.clicked(clicked):
                 screenClean(win)
                 randstring = "10^"+displayString 
                 text = beforeText(randstring)
@@ -382,7 +335,7 @@ def main():
                 displayString = "=" + str(tenpowy(displayString))
                 text1 = afterText(displayString)
                 text1.draw(win)
-            if inside(clicked, logbut, 620,140,680,200):
+            if logbut.clicked(clicked):
                 screenClean(win)
                 hiddenString1 = displayString
                 displayString = "log("+displayString + ")"
@@ -390,7 +343,7 @@ def main():
                 opsign = 7
                 text = beforeText(displayString)
                 text.draw(win)
-            if inside(clicked, arcsbut, 620,220,680,280):
+            if arcsbut.clicked(clicked):
                 screenClean(win)
                 randstring = "arcsin(" +displayString + ")"
                 text = beforeText(randstring)
@@ -398,15 +351,15 @@ def main():
                 displayString ="=" + str(arcsy(displayString))
                 text1 = afterText(displayString)
                 text1.draw(win)
-            if inside(clicked, arccbut, 620,300,680,360):
-                screenClean(win)
+            if arccbut.clicked(clicked):
+                screen.screenClean(win)
                 randstring = "arccos(" +displayString + ")"
                 text = beforeText(randstring)
                 text.draw(win)
                 displayString = "=" + str(arccy(displayString))
                 text1 = afterText(displayString)
                 text1.draw(win)
-            if inside(clicked, arctbut, 620,380,680,440):
+            if arctbut.clicked(clicked):
                 screenClean(win)
                 randstring = "arctan(" +displayString + ")"
                 text = beforeText(randstring)
@@ -414,7 +367,7 @@ def main():
                 displayString = "=" + str(arcty(displayString))
                 text1 = afterText(displayString)
                 text1.draw(win)
-            if inside(clicked, natlog, 620,460,680,520):
+            if natlog.clicked(clicked):
                 screenClean(win)
                 randstring = "ln(" +displayString + ")"
                 text = beforeText(randstring)
@@ -422,13 +375,13 @@ def main():
                 displayString = "=" + str(natlogy(displayString))
                 text1 = afterText(displayString)
                 text1.draw(win)
-            if inside(clicked, paraleft, 60,460,120,520):
+            if paraleft.clicked(clicked):
                 screenClean(win)
                 displayString = displayString + '('
                 text = beforeText(displayString)
                 text.draw(win)
                 para=True
-            if inside(clicked, pararight, 140,460,200,520):
+            if pararight.clicked(clicked):
                 screenClean(win)
                 displayString = displayString + ')'
                 text = beforeText(displayString)
